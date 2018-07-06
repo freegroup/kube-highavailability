@@ -6,10 +6,20 @@ To build a more production-ready configuration, users should consider:
  - running across multiple Availability Zones
  
 
+## Overview
 In this tutorial I cover the scenario below. 
  - One Cluster
- - Multi tenants each in it own namespace
- - multi availability zone
+ - Multi tenants each in its own namespace
+ - multiple availability zones
  
  
 ![Screen](/images/overview.png?raw=true "overview")
+
+## Setup
+To use multiple AZ we need to setup a cluster with a customized shoot YAML  and add the AWS availability
+zones by hand.
+
+### get a kubeconfig.yaml for a technical user
+ 
+ 
+![Screen](/images/dashboard_create_technical_user.png?raw=true "create_user")
