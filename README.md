@@ -9,7 +9,7 @@ To build a more production-ready configuration, users should consider:
 ## Overview
 In this tutorial I cover the scenario below. 
  - One Cluster
- - Multi tenants each in its own namespace
+ - Multi tenants, each in its own namespace
  - **multiple availability zones**
  - each pod of a Deployment/StatefulSet running in a different zone
  
@@ -21,18 +21,24 @@ To use multiple AZ we need to setup a cluster with a customized shoot YAML  and 
 zones and network segments by hand. But don't worry - there's no magic behind it
 
 ### Get a kubeconfig.yaml for a technical user
-Fist of all we need a kubeconfig.yaml to access the gardener via `kubectl`. I assume you already know how to use 
-kubectl and make a kubeconfig available. Below is a shoot screencast how you can download a new kubeconfig.yaml 
-in the gardener dashboard.
+First of all we need a kubeconfig.yaml to access the gardener via `kubectl`. I assume you already know how to use 
+kubectl and make a kubeconfig available. Below is a screencast how you can create and download a new kubeconfig.yaml 
+from the gardener dashboard.
  
 ![Screen](/images/create_tech_user.gif?raw=true "create_user")
 
 
 ### Create a custom shoot.yaml
-Download and edit the shoot YAML below to your needs.
+You can create a new cluster either from the UI or from the command line. For our purposes we have to create the 
+cluster via the command line. The reason for this is that the UI does not offer all possibilities to edit the 
+zones and the networks.
 
-where:
- - **&lt;GARDENER-NEW-CLUSTERNAME-TO-CREATE&gt;** is the name of the cluster to create
+Below is a template of a shoot.yaml. Please assign the named placeholders with the corresponding values 
+and deploy the YAML with `kubectl`. (Keep in mind to use the `kubeconfig.yaml`of your technical user)
+
+
+Where:
+ - **&lt;GARDENER-NEW-CLUSTERNAME-TO-CREATE&gt;** is the name of the new cluster to create
  - **&lt;GARDENER-EXISTING-PROJECT&gt;** is the gardener project which belongs to the technical user
  - **&lt;YOUR-AWS-SECRET-NAME&gt;** the name of the AWS secret to use
 
@@ -162,3 +168,9 @@ spec:
 
 ![Screen](/images/deployment.png?raw=true "create_user")
 
+
+The important part is the `podAntiAffinity` and especially the `topologyKey`. Without the topology a schedule 
+of the pod in the layout below ist possible.
+
+
+![Screen](/images/deployment_wrong.png?raw=true "create_user")
