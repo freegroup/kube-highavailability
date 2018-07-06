@@ -172,7 +172,7 @@ spec:
 ```
 
 The important part is the `podAntiAffinity` and especially the `topologyKey`. Without the topology a schedule 
-of the pod in the layout below ist possible.
+of the pod in the layout below ist possible. **This is then guaranteed not the desired result.**
 
 
 ![Screen](/images/deployment_wrong.png?raw=true "create_user")
