@@ -1,0 +1,85 @@
+# Attention: you must search/replace the gardener project and the requested cluster name
+#
+#
+# My project was "cpet" and the cluster I want to create is "multiaz". Please adapt this to your needs
+#
+# with this setup you have a limit of 64 machines/zone. This is related to the used CIDR range
+# and can be changed.
+#
+kind: Shoot
+apiVersion: garden.sapcloud.io/v1beta1
+metadata:
+  name: multiaz
+  namespace: garden-cpet
+  annotations:
+    garden.sapcloud.io/createdBy: andreas.herz@sap.com
+    garden.sapcloud.io/purpose: evaluation
+  finalizers:
+    - gardener
+spec:
+  addons:
+    cluster-autoscaler:
+      enabled: true
+    heapster:
+      enabled: true
+    kubernetes-dashboard:
+      enabled: true
+    nginx-ingress:
+      enabled: true
+    monocular:
+      enabled: false
+  backup:
+    schedule: '*/5 * * * *'
+    maximum: 7
+  cloud:
+    profile: aws
+    region: eu-central-1
+    secretBindingRef:
+      name: aws-secret
+    seed: aws-eu1
+    aws:
+      machineImage:
+        name: CoreOS
+        ami: ami-d0dcef3b
+      networks:
+        nodes: 10.250.0.0/16
+        pods: 100.96.0.0/11
+        services: 100.64.0.0/13
+        vpc:
+          cidr: 10.250.0.0/16
+        internal:
+          - 10.250.112.0/26
+          - 10.250.112.64/26
+          - 10.250.112.128/26
+        public:
+          - 10.250.96.0/26
+          - 10.250.96.64/26
+          - 10.250.96.128/26
+        workers:
+          - 10.250.0.0/26
+          - 10.250.0.64/26
+          - 10.250.0.128/26
+      workers:
+        - name: worker-c92jz
+          machineType: m4.large
+          autoScalerMin: 3
+          autoScalerMax: 12
+          volumeType: gp2
+          volumeSize: 50Gi
+      zones:
+        - eu-central-1a
+        - eu-central-1b
+        - eu-central-1c
+  dns:
+    provider: aws-route53
+    hostedZoneID: Z1ZC826MD6OQ78
+    domain: multiaz.cpet.shoot.canary.k8s-hana.ondemand.com
+  kubernetes:
+    allowPrivilegedContainers: true
+    version: 1.10.5
+  maintenance:
+    autoUpdate:
+      kubernetesVersion: true
+    timeWindow:
+      begin: 230000+0000
+      end: 000000+0000

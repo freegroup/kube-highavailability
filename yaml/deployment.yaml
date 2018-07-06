@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-server
+spec:
+  selector:
+    matchLabels:
+      app: web-store
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: web-store
+        ns:
+          fieldRef:
+            fieldPath: metadata.namespace
+    spec:
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: app
+                operator: In
+                values: [ "web-store"]
+            topologyKey: "failure-domain.beta.kubernetes.io/zone"
+      containers:
+      - name: web-app
+        image: nginx:1.12-alpine
