@@ -11,14 +11,14 @@ In this tutorial I cover the scenario below.
  - One Cluster
  - Multi tenants each in its own namespace
  - **multiple availability zones**
- - each pod of a Deployment/DtatefulSet running in a different zone
+ - each pod of a Deployment/StatefulSet running in a different zone
  
  
 ![Screen](/images/overview.png?raw=true "overview")
 
 ## Setup
 To use multiple AZ we need to setup a cluster with a customized shoot YAML  and add the AWS availability
-zones and notwork segments by hand. But don't worry - there's no magic behind it
+zones and network segments by hand. But don't worry - there's no magic behind it
 
 ### Get a kubeconfig.yaml for a technical user
 Fist of all we need a kubeconfig.yaml to access the gardener via `kubectl`. I assume you already know how to use 
