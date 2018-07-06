@@ -124,7 +124,7 @@ spec:
 
 After replacing all values you can now create a new cluster using kubectl.
 
-``` 
+```bash 
 kubectl apply -f my-shoot.yaml
 ```
 
