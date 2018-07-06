@@ -134,6 +134,11 @@ You can now go to your gardener dashboard and check the progress of your cluster
 
 Now we deploy the simple demo application below and get the desired schedule of the pods in its very own zone.
 
+
+![Screen](/images/deployment.png?raw=true "create_user")
+
+
+
 ```YAML
 apiVersion: apps/v1
 kind: Deployment
@@ -165,9 +170,6 @@ spec:
       - name: web-app
         image: nginx:1.12-alpine
 ```
-
-![Screen](/images/deployment.png?raw=true "create_user")
-
 
 The important part is the `podAntiAffinity` and especially the `topologyKey`. Without the topology a schedule 
 of the pod in the layout below ist possible.
