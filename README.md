@@ -22,4 +22,4 @@ zones by hand.
 ### get a kubeconfig.yaml for a technical user
  
  
-![Screen](/images/dashboard_create_technical_user.png?raw=true "create_user")
+![Screen](/images/create_tech_user.gif?raw=true "create_user")
