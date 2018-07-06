@@ -20,7 +20,7 @@ In this tutorial I cover the scenario below.
 To use multiple AZ we need to setup a cluster with a customized shoot YAML  and add the AWS availability
 zones and network segments by hand. But don't worry - there's no magic behind it
 
-### Get a kubeconfig.yaml for a technical user
+### Get access to the gardener API
 First of all we need a kubeconfig.yaml to access the gardener via `kubectl`. I assume you already know how to use 
 kubectl and make a kubeconfig available. Below is a screencast how you can create and download a new kubeconfig.yaml 
 from the gardener dashboard.
@@ -28,7 +28,7 @@ from the gardener dashboard.
 ![Screen](/images/create_tech_user.gif?raw=true "create_user")
 
 
-### Create a custom shoot.yaml
+### Create a shoot.yaml
 You can create a new cluster either from the UI or from the command line. For our purposes we have to create the 
 cluster via the command line. The reason for this is that the UI does not offer all possibilities to edit the 
 zones and the networks.
@@ -130,7 +130,7 @@ kubectl apply -f my-shoot.yaml
 
 You can now go to your gardener dashboard and check the progress of your cluster creation.
 
-## Create a simple demo application
+### Deploy demo application
 
 Now we deploy the simple demo application below and get the desired schedule of the pods in its very own zone.
 
