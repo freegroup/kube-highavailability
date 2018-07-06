@@ -9,10 +9,10 @@
 kind: Shoot
 apiVersion: garden.sapcloud.io/v1beta1
 metadata:
-  name: multiaz
-  namespace: garden-cpet
+  name: <GARDENER-NEW-CLUSTERNAME-TO-CREATE>
+  namespace: garden-<GARDENER-EXISTING-PROJECT>
   annotations:
-    garden.sapcloud.io/createdBy: andreas.herz@sap.com
+    garden.sapcloud.io/createdBy: user@domain.de
     garden.sapcloud.io/purpose: evaluation
   finalizers:
     - gardener
@@ -35,7 +35,7 @@ spec:
     profile: aws
     region: eu-central-1
     secretBindingRef:
-      name: aws-secret
+      name: <YOUR-AWS-SECRET-NAME>
     seed: aws-eu1
     aws:
       machineImage:
@@ -73,7 +73,7 @@ spec:
   dns:
     provider: aws-route53
     hostedZoneID: Z1ZC826MD6OQ78
-    domain: multiaz.cpet.shoot.canary.k8s-hana.ondemand.com
+    domain: <GARDENER-NEW-CLUSTERNAME-TO-CREATE>.<GARDENER-EXISTING-PROJECT>.shoot.canary.k8s-hana.ondemand.com
   kubernetes:
     allowPrivilegedContainers: true
     version: 1.10.5
