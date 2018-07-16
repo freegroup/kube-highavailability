@@ -153,9 +153,6 @@ spec:
     metadata:
       labels:
         app: web-store
-        ns:
-          fieldRef:
-            fieldPath: metadata.namespace
     spec:
       affinity:
         podAntiAffinity:
